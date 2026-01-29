@@ -10,3 +10,7 @@ compiled/
 *.bak
 \#*
 .\#*
+
+# Program-generated files
+*.musicxml
+*.mp4
