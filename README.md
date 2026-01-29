@@ -1,2 +1,2 @@
 # rocky-grace-decoding-the-music
-Rocky &amp; Grace: Decoding the Music
+Rocky & Grace: Decoding the Music
