@@ -1,6 +1,6 @@
 
 snips_txt := $(wildcard ./snips/*.toki-pona.txt)
-snips_musicxml := $(wildcard ./snips/*.musicxml) $(snips_txt:%.toki-pona.txt=%.chords-in-C.musicxml)
+snips_musicxml := $(wildcard ./snips/*.musicxml) $(snips_txt:%.toki-pona.txt=%.chords-in-C.musicxml) $(snips_txt:%.toki-pona.txt=%.chords-in-C-B-Fl.musicxml)
 snips_png := $(wildcard ./snips/*.png) $(snips_musicxml:%.musicxml=%-1.png)
 snips_mp3 := $(wildcard ./snips/*.mp3) $(snips_musicxml:%.musicxml=%.mp3)
 snips_mp4 := $(snips_musicxml:%.musicxml=%.mp4)
@@ -20,6 +20,14 @@ tidy:
 # - `$<` in the command means first prereq, in this case `%.toki-pona.txt`
 %.chords-in-C.musicxml : %.toki-pona.txt
 	racket -l toki-pi-kalama-musi/diatonic/inversion/musicxml.rkt -- -f $<
+
+# NOTE:
+# - `$<` in the command means first prereq,
+#   in this case `%.chords-in-C.musicxml`
+# - `$(<:%.chords-in-C.musicxml=%.chords-in-C-B-Fl.musicxml)` in the command
+#   expresses `%.chords-in-C-B-Fl.musicxml`
+%.chords-in-C-B-Fl.musicxml : %.chords-in-C.musicxml
+	tidy -iq -wrap 0 -xml $< | sed -e "s/\\( *\\)<part-name>Music<\\/part-name>/\\1<part-name>Bass Flute<\\/part-name>\\n\\1<part-abbreviation>B. Fl.<\\/part-abbreviation>/g" > $(<:%.chords-in-C.musicxml=%.chords-in-C-B-Fl.musicxml)
 
 png: $(snips_png)
 

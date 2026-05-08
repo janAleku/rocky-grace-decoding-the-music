@@ -13,4 +13,5 @@ compiled/
 
 # Program-generated files
 *.musicxml
+*.chords-in-C-B-Fl*.png
 *.mp4
