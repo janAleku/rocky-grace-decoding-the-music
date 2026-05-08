@@ -5,7 +5,7 @@ snips_png := $(wildcard ./snips/*.png) $(snips_musicxml:%.musicxml=%-1.png)
 snips_mp3 := $(wildcard ./snips/*.mp3) $(snips_musicxml:%.musicxml=%.mp3)
 snips_mp4 := $(snips_musicxml:%.musicxml=%.mp4)
 
-.PHONY: most all musicxml tidy png mp3 mp4
+.PHONY: most all musicxml tidy 8v png mp3 mp4
 
 most: musicxml png mp3
 
@@ -15,6 +15,9 @@ musicxml: $(snips_musicxml)
 
 tidy:
 	tidy -iqm -wrap 0 -xml ./snips/*.musicxml
+
+8v:
+	find ./snips -iregex .*8v.*
 
 # NOTE:
 # - `$<` in the command means first prereq, in this case `%.toki-pona.txt`
